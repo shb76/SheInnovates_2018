@@ -55,4 +55,5 @@ var controller = {
 // Run the game
 $(document).ready(function() {
   controller.init();
+  view.listen(); 
 });

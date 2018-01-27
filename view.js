@@ -1,32 +1,55 @@
 // The "V" in MVC, does rendering, eventhandlers,
 // and runs appropriate controller response to those events
+newenemies = ["images/meme1.png", "images/meme2.png", "images/meme3.png"]
+var id = null; 
 var view = {
+  
   // Dimensions of the canvas in pixels
   max: 800,
   previousTime: 0,
   // Initialize game loop
-  init: function(model.currentlevel) {
-     currentlevel = model.currentlevel
-   alert("hi"); 
+  init: function(currentlevel) {
+  		console.log("inside init"); 
+  		console.log(currentlevel); 
+	currentlevel = model.currentlevel
     var INTERVAL = 30; // Set pace of game, 30 ~ 30 frames per second
     // Attach eventListener for hitting spacebar for firing
     view.fireListener();
-	
+	if (currentlevel == 1){
     window.onload = function() {
       var canvas = $("#canvas")[0],
         c = canvas.getContext("2d");
       // THE GAME LOOP BABY
-      setInterval(function() {
+      id = setInterval(function() {
+      	console.log("inside setinterval"); 
         var currentTime = new Date().getTime();
-
         view.update(currentTime);
         view.renderAvatar(canvas);
         view.renderBullets(canvas);
-        view.renderEnemies(canvas);
+        view.renderEnemies(canvas, currentlevel);
         view.renderStats();
       }, INTERVAL);
     };
+   }else {
+   		console.log("got to else"); 
+   		var canvas = $("#canvas")[0],
+        c = canvas.getContext("2d");
+      // THE GAME LOOP BABY
+      id = setInterval(function() {
+      	console.log("inside setinterval"); 
+        var currentTime = new Date().getTime();
+        view.update(currentTime);
+        view.renderAvatar(canvas);
+        view.renderBullets(canvas);
+        view.renderEnemies(canvas, currentlevel);
+        view.renderStats();
+      }, INTERVAL);
+   	
+   }
   },
+  stop: function(){
+  	clearInterval(id); 
+  }, 
 
   // Renders the game board state on canvas
   renderAvatar: function(canvas) {
@@ -50,11 +73,18 @@ var view = {
     }
   },
 
-  renderEnemies: function(canvas) {
+  renderEnemies: function(canvas, currentlevel) {
     var c = canvas.getContext("2d");
     // retrieve enemy objects from controller
     var enemies = controller.getEnemies();
     // render enemies
+    console.log(currentlevel); 
+    if (currentlevel > 1){
+    	 for (var b in enemies) {
+    	  enemies[b].image.src = newenemies[currentlevel-1];
+    	}
+    	
+    }
     for (var b in enemies) {
       enemies[b].draw(c);
     }
@@ -105,5 +135,25 @@ var view = {
     $(document).on("keydown", function(e) {
       if (e.keyCode == 32) controller.avatarFire();
     });
+  }, 
+  listen: function(){
+  	console.log("in listen function"); 
+  	document.getElementById("continue").addEventListener("click", function toffi(){
+  		alert("HI"); 
+  	});
+  }, 
+  message: function(){
+  var sw = document.getElementById("game");
+  var info = document.getElementById("info"); 
+  if (sw.style.display === "block") {
+    sw.style.display = "none";
+    info.style.display = "block"
+  } else {
+    sw.style.display = "block";
+    info.style.display = "none";
   }
+  console.log(sw.style.display);
+}
+  
+  
 };

@@ -93,9 +93,12 @@ var model = {
   bulletHitsEnemy: function(bullet, enemy) {
     model.score++;
    if (model.score > levels[model.currentlevel-1]){
-    	alert("You reached level 2");	
     	model.currentlevel +=1;
-    	view.init();
+    	view.stop(); 
+    	view.message(); 
+    	console.log("getting to init"); 
+    	//view.init(model.currentlevel);
+
     }
     if (model.score > model.highScore) model.highScore = model.score;
     model.killEnemy(enemy);
@@ -129,7 +132,7 @@ function Avatar() {
   // Size and Bitmap image
   this.size = 50;
   this.image = new Image();
-  this.image.src = "images/charizard.jpg";
+  this.image.src = "images/player.png";
 
   // Renders the avatar image on the passed context, which should be a canvas
   this.draw = function(context) {
@@ -160,10 +163,10 @@ function Bullet() {
   this.dy = 20;
 
   // Size and Bitmap image
-  this.sizeX = 10;
-  this.sizeY = 20;
+  this.sizeX = 20;
+  this.sizeY = 30;
   this.image = new Image();
-  this.image.src = "images/fireball.png";
+  this.image.src = "images/femalesymbol.png";
 
   // Renders the bullet image on the passed context, which should be a canvas
   this.draw = function(context) {
@@ -184,7 +187,7 @@ function Enemy() {
   // Size and Bitmap image
   this.size = 50;
   this.image = new Image();
-  this.image.src = "images/blastoise-mega.jpg";
+  this.image.src = "images/meme3.png";
 
   // Renders the bullet image on the passed context, which should be a canvas
   this.draw = function(context) {
