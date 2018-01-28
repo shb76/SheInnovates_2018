@@ -1,0 +1,13 @@
+.center {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 70;
+}
+
+#canvas {
+  border: 5px solid cyan;
+  
+ 
+  
+}
